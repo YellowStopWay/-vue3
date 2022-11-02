@@ -61,7 +61,8 @@ const submitForm = () => {
         //存储token
         Cookie.set('token',res.data.tokenHead+res.data.token,{expires: 7})
 				User.getUserInfo();
-				router.push('/home');
+				router.push('/index');
+				
         // getAdminInfoApi().then(res => {
         //   if(res.code === 200){
 				// 		User.menus = res.data.menus;

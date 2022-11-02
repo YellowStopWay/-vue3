@@ -17,7 +17,7 @@ interface NewMenus {
   [key: number]: MenuObj;
 }
 
-export const useUserStore = defineStore<string, State>(Names.User, {
+export const useUserStore = defineStore<string, State,any>(Names.User, {
   state: () => {
     return {
       menus: [],
@@ -47,9 +47,6 @@ export const useUserStore = defineStore<string, State>(Names.User, {
   },
   //可以操作异步 和 同步提交state
   actions: {
-    updateMenus(menus: any) {
-      this.menus = menus;
-    },
     async getUserInfo() {
       const res = await getAdminInfoApi();
       if (res.code === 200) {

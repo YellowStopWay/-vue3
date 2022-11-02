@@ -13,14 +13,14 @@
 								<span>{{menu.title}}</span>
 							</template>
 							<template v-for="(subMenu) in menu.children" >
-								<el-menu-item index="1-4-1" v-if="!subMenu.hidden" :key="subMenu.id">{{subMenu.title}}</el-menu-item>
+								<el-menu-item :index="'/'+menu.name+'/'+subMenu.name" v-if="!subMenu.hidden" :key="subMenu.id">{{subMenu.title}}</el-menu-item>
 							</template>
 						</el-sub-menu>
 					</el-menu>
 				</el-col>
 			</el-row>
 		</div>
-		<div class="home_content">右侧内容</div>
+		<div class="home_content"><RouterView></RouterView></div>
 	</div>
 
 </template>
@@ -28,6 +28,8 @@
 <script setup lang='ts'>
 import {useUserStore} from '../../store'
 import { storeToRefs } from "pinia";
+import {computed} from 'vue'
+import { RouterView } from 'vue-router';
 
 //定义menus对象的接口
 interface MenuObj {
@@ -36,6 +38,7 @@ interface MenuObj {
   children?: MenuObj[];
 	hidden: 0 | 1;
 	title: string;
+	name: string;
 }
 // 二级菜单的menus
 interface NewMenus {
@@ -43,7 +46,8 @@ interface NewMenus {
 }
 const User = useUserStore();
 const {menus} = storeToRefs(User)
-const newMenus:NewMenus = User.getNewMenus;
+// const newMenus = computed(() => User.getNewMenus) 也可以用计算属性
+ const newMenus:NewMenus = User.getNewMenus;
 console.log(menus);
 console.log(newMenus);
 
