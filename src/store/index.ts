@@ -25,7 +25,7 @@ export const useUserStore = defineStore<string, State,any>(Names.User, {
   },
   //类似于computed 可以帮我们去修饰我们的值
   getters: {
-    getNewMenus(state) {
+    getNewMenus(state: State) {
       const newMenus: NewMenus = {};
       const menus = state.menus;
       for (let i = 0; i < menus.length; ++i) {
