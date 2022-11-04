@@ -61,13 +61,13 @@ console.log(newMenus);
 	height: 100%;
 
 	.home_header {
-		height: 70px;
+		height: 100px;
 		background-color: skyblue;
 	}
 
 	.home_menu {
 		position: absolute;
-		top: 70px;
+		top: 100px;
 		left: 0;
 		bottom: 0;
 		width: 250px;
@@ -76,7 +76,7 @@ console.log(newMenus);
 
 	.home_content {
 		position: absolute;
-		top: 70px;
+		top: 100px;
 		left: 250px;
 		bottom: 0;
 		width: 1030px;

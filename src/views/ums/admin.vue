@@ -21,7 +21,7 @@
     </el-table-column>
     <el-table-column label="操作">
       <template #default="{ row }">
-        <el-button text>
+        <el-button @click="allocRole(row.id)" text>
           分配角色
         </el-button>
         <el-button @click="editAdmin(row)" text>
@@ -31,19 +31,27 @@
     </el-table-column>
   </el-table>
   <EditAdmit :visible="visible" :form="rowData" @close="closeDialog"></EditAdmit>
+  <EditRole :visible="roleVisible" :form="roleData" @close="closeRoleDialog"></EditRole>
 
 </template>
 
 <script setup lang='ts'>
 import { reactive, toRefs } from 'vue';
-import { getAdminList } from '../../request/api'
+import { getAdminList,getRoleListAll,getAdminRoleById } from '../../request/api'
 import EditAdmit from './components/EditAdmit.vue';
-const state = reactive<{ tableData: {}[]; visible: boolean; rowData: {} }>({
+import EditRole from './components/EditRole.vue';
+const state = reactive<{ tableData: {}[]; visible: boolean; rowData: {}; roleVisible: boolean;roleData: AdminRoleFormData }>({
   tableData: [],
   visible: false,
-  rowData: {}
+  rowData: {},
+  roleVisible: false,
+  roleData: {
+    userRoles: [],
+    roleLists: [],
+    adminId: 0
+  }
 })
-const { tableData, visible, rowData } = toRefs(state);
+const { tableData, visible, rowData, roleVisible, roleData } = toRefs(state);
 
 //获取最新表格数据
 const fetchData = () => {
@@ -58,7 +66,12 @@ const fetchData = () => {
   })
 }
 fetchData()
-
+//获取所有角色
+getRoleListAll().then(res => {
+  if(res.code === 200){
+    roleData.value.roleLists = res.data;
+  }
+})
 
 //补0函数
 const addZero = (num: number) => {
@@ -77,24 +90,46 @@ const formatDate = (time?: string) => {
   let seconds = addZero(date.getSeconds());
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
 }
+
+//分配角色事件点击
+const allocRole = (id: number) => {
+  getAdminRoleById(id).then(res => {
+    if(res.code === 200){
+      roleVisible.value= true;
+      roleData.value.userRoles = res.data;
+      roleData.value.adminId = id;
+    }
+  })
+}
+
 //点击编辑按钮
 const editAdmin = (row: AdminObjItf) => {
   rowData.value = row;
   visible.value = true;
 }
 
-//隐藏弹框
+//隐藏编辑弹框
 const closeDialog = (r?: string) => {
   visible.value = false;
+  rowData.value = {};
   if (r === 'reload'){
     fetchData()
   }
 }
-
+//隐藏分配角色弹框
+const closeRoleDialog = () => {
+  roleVisible.value = false;
+}
 
 
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
+  #elb{
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    right: 200px;
+    top: 100px;
+  }
 </style>

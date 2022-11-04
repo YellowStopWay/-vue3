@@ -1,36 +1,6 @@
 import request from './request';
 
-//登录接口参数类型
-interface AdminLoginData {
-    password: string,
-    username: string
-}
-//定义Promise类型
-type PromiseRes<T = {}> = Promise<ManageResult<T>>
 
-//所有接口返回值泛型
-interface ManageResult<T = {}> {
-    code: number;
-    data: T;
-    //message: string;
-}
-
-//登录接口返回值类型
-interface AdminLoginRes {
-    token: string;
-    tokenHead: string;
-} 
-//获取用户信息返回值类型
-interface AdminInfoRes {
-    menus:[];
-
-}
-//获取用户数据列表的接口
-interface AdminListParams {
-    keyword: string; 
-    pageNum: Number; 
-    pageSize: Number
-}
 
 
 
@@ -44,3 +14,15 @@ export const getAdminList = (data :AdminListParams):PromiseRes<{list: {}[]}> => 
 
 //修改用户信息
 export const updateAdmin = (id:number, data :AdminObjItf):PromiseRes => request.post('/admin/update/'+id,  data)
+
+//获取所有角色
+export const getRoleListAll = ():PromiseRes<RoleObjItf[]> => request.get('/role/listAll')
+
+//根据用户id获取角色
+export const getAdminRoleById = (id:number):PromiseRes<RoleObjItf[]> => request.get('/admin/role/'+id)
+
+//分配用户角色
+export const updateAdminRole = (data: {adminId: number| undefined;roleIds: string}):PromiseRes => request.post('/admin/role/update',null,{params: data})
+
+//获取首页数据
+export const getAdminStat = ():PromiseRes<IndexDateIft> => request.get('http://kumanxuan1.f3322.net:8360/admin/stat')

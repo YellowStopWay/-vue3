@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="visible" title="Shipping address" :before-close="close">
+  <el-dialog v-model="visible" title="编辑用户信息" :before-close="close">
     <el-form :model="newForm" :label-width="formLabelWidth">
       <el-form-item label="账号">
         <el-input v-model="newForm.username" autocomplete="off" />
