@@ -1,3 +1,5 @@
 interface IndexDateIft {
-  salePie: {}[]
+  salePie: {}[],
+  saleMap: {}[],
+  
 }

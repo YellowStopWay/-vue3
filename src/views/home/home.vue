@@ -3,7 +3,7 @@
 		<div class="home_header">
 			头部
 		</div>
-		<div class="home_menu">
+		<div class="home_menu" active-text-color="#ffd04b">
 			<el-row class="tac">
 				<el-col :span="24">
 					<h5 class="mb-2">Default colors</h5>
@@ -59,7 +59,7 @@ console.log(newMenus);
 .home_container {
 	position: relative;
 	height: 100%;
-
+	border: 1px solid #ccc;
 	.home_header {
 		height: 100px;
 		background-color: skyblue;
@@ -71,7 +71,6 @@ console.log(newMenus);
 		left: 0;
 		bottom: 0;
 		width: 250px;
-		background-color: pink;
 	}
 
 	.home_content {
@@ -80,7 +79,6 @@ console.log(newMenus);
 		left: 250px;
 		bottom: 0;
 		width: 1030px;
-		background-color: yellow;
 	}
 }
 </style>        
